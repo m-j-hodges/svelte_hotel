@@ -1,0 +1,24 @@
+{
+  "name": "svelte_hotel",
+  "version": "1.0.0",
+  "description": "A hotel website",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-j-hodges/svelte_hotel.git"
+  },
+  "keywords": [
+    "React",
+    "Node.js",
+    "javascript"
+  ],
+  "author": "Matt Hodges",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-j-hodges/svelte_hotel/issues"
+  },
+  "homepage": "https://github.com/m-j-hodges/svelte_hotel#readme"
+}
