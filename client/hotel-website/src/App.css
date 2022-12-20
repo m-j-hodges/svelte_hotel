@@ -23,6 +23,16 @@ a {
   border-radius: 6px;
 }
 
+.btn-custom {
+  border: 2px solid black;
+
+}
+.btn-custom:hover {
+  background-color: grey;
+  transition: all .3s ease-in-out;
+
+}
+
 a:hover {
   color: gainsboro;
 }

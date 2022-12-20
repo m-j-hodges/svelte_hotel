@@ -59,7 +59,7 @@ const packetizeIt = () => {
       <label className="px-3 d-inline" for="passwordField">Password:</label>
       <input className="form-control my-3 w-50 d-inline" onChange={(e)=> validatePassword(e.target.value)} type="password" placholder="***"></input>
       <small className="d-block">{passAlert}</small>
-      <button className="btn btn-secondary p-1 m-3 d-block" onClick={() => packetizeIt()} type="button">submit</button>
+      <button className="btn btn-secondary p-2 m-3 d-block" onClick={() => packetizeIt()} type="button">create account</button>
     </div>
     <div className="col-4"></div>
     </div>
