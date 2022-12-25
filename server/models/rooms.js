@@ -2,20 +2,20 @@ const {Schema, model} = require('mongoose');
 
 const roomsSchema = new Schema({
   roomType: {
-    type: String,
-    required: true,
+    type: String
   },
   roomPrice: {
-    type: Number,
-    required: true,
+    type: Number
   },
   discounted: {
-    type: Boolean,
+    type: Boolean
   },
   numAvailable: {
-    type: Number,
+    type: Number
   },
-
+  imgURL: {
+    type: String
+  },
 });
 
 const Rooms = model('Rooms', roomsSchema);

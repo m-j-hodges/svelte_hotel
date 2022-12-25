@@ -1,45 +1,45 @@
-import React, {useState} from 'react';
+import React, {useDebugValue, useState} from 'react';
 import Header from './header'
+import {useMutation} from '@apollo/client'
 import Axios from 'axios';
+import {REGISTER_MUT} from '../utils/mutations'
+
 
 const Register = () => {
 
-const [userName, setUserName] = useState('')
+
 const [alertMsg, setAlertMsg] = useState('')
 const [passAlert, setPassAlert] = useState('')
-const [password, setPassword] = useState('')
-const [email, setEmail] = useState('')
+
+const [registerForm, setRegisterForm] = useState({username: '',password: '', email: ''})
+const [regUser, { error, data }] = useMutation(REGISTER_MUT);
 
 function validateStr(str) {
   if(str.length === 0) {
     setAlertMsg('enter a longer username.')
   }
-  else {
-    setUserName(str)
-    setAlertMsg('')
-  }
 }
 
-function validatePassword(pass) {
-  if(pass.length < 8 && pass.length !== 0) {
-    setPassAlert('password length is too short.')
-  }
-  else {
-    setPassword(pass)
-    setPassAlert('')
-  }
-}
+const validatePassword = (e) => {
+  const {name, value} = e.target
+  const regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+ if(name == 'email' && value.match(regex)) {
+    setRegisterForm({...registerForm,[name]: value,})
+ }
+else if(name === 'password') {
+  setRegisterForm({...registerForm,[name]: value,})
+ } 
+else if(name === 'username') {
+  setRegisterForm({...registerForm,[name]: value,})
+ }
+  
+};
 
-const packetizeIt = () => {
-  if( password > 8 && userName !== null) {
-    Axios.post('/user', {
-      username: userName,
-      password: password,
-      email: email
-    })
-
-  }
-
+const submitForm = async (e) => {
+  e.preventDefault();
+  const {data} = await regUser({
+    variables: {...registerForm}
+  })
 }
 
   return(
@@ -51,15 +51,15 @@ const packetizeIt = () => {
     <div className="form-group col-4 custom-back">
     <h3 className="text-center m-3 custom-header"> Register</h3>
       <label className="px-3 d-inline"for="emailField">Email:</label>
-      <input id="emailfield" className="form-control my-3 w-50 d-inline" onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email@email.com"></input>
+      <input id="emailfield" name="email" onChange={(e) => validatePassword(e)} className="form-control my-3 w-50 d-inline" type="email" placeholder="email@email.com"></input>
       <br></br>
       <label className="px-3 d-inline" for="userNameField">username:</label>
-      <input id="userNameField" onChange={(e) => validateStr(e.target.value)} className="form-control my-3 w-50 d-inline" type="input"></input>
+      <input id="userNameField" name="username" onChange={(e)=> validatePassword(e)} className="form-control my-3 w-50 d-inline" type="input"></input>
       <small className="d-block">{alertMsg}</small>
       <label className="px-3 d-inline" for="passwordField">Password:</label>
-      <input className="form-control my-3 w-50 d-inline" onChange={(e)=> validatePassword(e.target.value)} type="password" placholder="***"></input>
+      <input className="form-control my-3 w-50 d-inline" name="password" onChange={(e)=> validatePassword(e)} type="password" placholder="***"></input>
       <small className="d-block">{passAlert}</small>
-      <button className="btn btn-secondary p-2 m-3 d-block" onClick={() => packetizeIt()} type="button">create account</button>
+      <button className="btn btn-secondary p-2 m-3 d-block" onClick={(e)=> submitForm(e)} type="button">create account</button>
     </div>
     <div className="col-4"></div>
     </div>

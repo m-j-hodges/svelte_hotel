@@ -9,8 +9,14 @@ import Register from './components/Register'
 import Main from './components/main'
 
 
+
+
+
 function App() {
+
+
   return (
+
     <Router>
       <Routes>
       <Route

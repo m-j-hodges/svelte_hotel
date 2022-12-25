@@ -14,10 +14,18 @@ a {
   color: white;
   font-size: 20px;
 }
+
+.myHeader img {
+  width: 50px;
+  background-color: black;
+  white-space: nowrap;
+}
 .myHeader:hover {
   color: #E5E5E5;
 
 }
+
+
 .navbar-item:hover {
   background-color: grey;
   border-radius: 6px;
