@@ -74,6 +74,7 @@ type Auth {
     deleteRooms(_id: ID!): Rooms
     updateRoom(_id: ID!, imgURL: String!): Rooms
     Register(username: String!, password: String!, email: String!): Auth
+    loginUser(username:String!, password: String!) : Auth
   }
 `
 

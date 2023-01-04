@@ -2,6 +2,8 @@ import React, {Component, useState, useEffect} from 'react';
 import Header from './header'
 import { useQuery, gql } from '@apollo/client'
 import {QUERY_ROOMS} from "../utils/queries"
+import AuthService from '../utils/auth'
+import Premier from '../components/Premier'
 
 export default function Main() {
 
@@ -50,16 +52,16 @@ useEffect(() => {
       <>
       <div className={'col-md-' + 4}>
       <div className="card p-2 m-2">
-      <div className="card-title text-center">{item.roomType}</div>
-      <img className="card-img-top" src={item.imgURL}></img>
-      <p className="card-text"> Nightly rate: {item.roomPrice}</p>
+      <div className="card-title text-center h3">{item.roomType}</div>
+      <img className="card-img-top" style={{height: "14rem"}} src={item.imgURL}></img>
+      <p className="card-text"> Nightly rate: ${item.roomPrice}</p>
       <button className="btn btn-custom" onClick={() => notifyUser()} id={item.roomType + ' order'}>Book Room</button>
       <p style={{fontSize: "18px"}}className={notifyMsgBool ? 'd-block' : 'd-none'}>{notifyMsgBool ? notifyMsg : ''}</p>
       </div>
       </div>
       
       </>
-    )): (<p> loading...</p>)}
+    )) : (<p> loading...</p>)}
     
     </div>
     </>

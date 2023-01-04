@@ -1,11 +1,22 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
+import { useEffect } from 'react';
+import AuthService from '../utils/auth'
+import Premier from './Premier'
 
-export default class Header extends Component {
-  state = {
-    title: 'Welcome to the Svelte Hotel!'
-  };
+export default function Header() {
 
-render() {
+  const [newUser, setnewUser] = useState('')
+  const [loggedInStatus, setLoggedInStatus] = useState(AuthService.loggedIn())
+useEffect(() => {
+  if(localStorage.getItem('id_token')) {
+  const userProfile = AuthService.getProfile()
+  if(userProfile) {
+  setnewUser(userProfile.data.username)  
+  }
+}
+  console.log(AuthService.loggedIn())
+}, [])
+
 return (
 <div>
   <header>
@@ -20,18 +31,23 @@ return (
             Amenities
           </a>
           <ul className="dropdown-menu">
-            <li><a className="menu-item dropdown-item" href="/rooms">Rooms</a></li>
-            <li><a className="menu-item dropdown-item" href="#">Facilities</a></li>
-            <li><a className="menu-item dropdown-item" href="#">Location</a></li>
+            <li><a className="menu-item dropdown-item custom-menu" href="/rooms">Rooms</a></li>
+            <li><a className="menu-item dropdown-item custom-menu" href="/amenities">Amenities</a></li>
+            <li><a className="menu-item dropdown-item custom-menu" href="#">Location</a></li>
           </ul>
         </li>
     <li className="navbar-item m-2 p-2"><a className="my-text" href="/book">Make a Reservation</a></li>
+    {newUser ? <li className='navbar-item m-2 p-2 text-white custom-menu'>Welcome {newUser}</li> : ''}
+    {loggedInStatus ? <li onClick={()=> AuthService.logout()} className='navbar-item m-2 p-2 text-white custom-menu'>Logout</li> : ''}
     </ul>
+    <a href="/premier">
+    {loggedInStatus ? <img className="custom-img mx-3" src="img/shopping_cart.png"></img> : ''}
+    </a>
     </div>
     </nav>
     </header> 
 
 </div> 
 );
-}
+
 }

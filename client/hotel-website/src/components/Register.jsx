@@ -3,6 +3,8 @@ import Header from './header'
 import {useMutation} from '@apollo/client'
 import Axios from 'axios';
 import {REGISTER_MUT} from '../utils/mutations'
+import AuthService from '../utils/auth'
+import { useEffect } from 'react';
 
 
 const Register = () => {
@@ -10,6 +12,7 @@ const Register = () => {
 
 const [alertMsg, setAlertMsg] = useState('')
 const [passAlert, setPassAlert] = useState('')
+const [registerNotify, setregisterNotify] = useState('')
 
 const [registerForm, setRegisterForm] = useState({username: '',password: '', email: ''})
 const [regUser, { error, data }] = useMutation(REGISTER_MUT);
@@ -40,7 +43,20 @@ const submitForm = async (e) => {
   const {data} = await regUser({
     variables: {...registerForm}
   })
+  console.log(data)
+  AuthService.login(data.Register.token)
+  if (data.register.token) {setregisterNotify('You have successfully been logged in!')}
+  else {setregisterNotify('There was an error in logging you in!')}
 }
+
+useEffect(() => {
+  const clearNotify = setInterval(() => {
+    setregisterNotify('')
+    
+  }, 5000)
+return () => clearInterval(clearNotify)
+
+}, []);
 
   return(
     <>
@@ -60,6 +76,7 @@ const submitForm = async (e) => {
       <input className="form-control my-3 w-50 d-inline" name="password" onChange={(e)=> validatePassword(e)} type="password" placholder="***"></input>
       <small className="d-block">{passAlert}</small>
       <button className="btn btn-secondary p-2 m-3 d-block" onClick={(e)=> submitForm(e)} type="button">create account</button>
+      {registerNotify ? <div className="alert alert-success">${registerNotify}</div> : registerNotify}
     </div>
     <div className="col-4"></div>
     </div>

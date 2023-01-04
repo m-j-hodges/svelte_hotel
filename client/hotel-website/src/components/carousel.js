@@ -3,9 +3,9 @@ import React, {useState, useEffect} from 'react';
 import '../carousel.css';
 
 
-export const CarouselItem = ({children, width}) => {
+export const CarouselItem = ({children, width, height}) => {
   return (
-    <div className="carousel-i" style={{width: width}}>
+    <div className="carousel-i" style={{height: height,width: width}}>
       {children}
     </div>
 

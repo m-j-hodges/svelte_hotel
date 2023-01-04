@@ -56,6 +56,15 @@ const resolvers = {
       const token = signToken(user)
       return {token, user}
     },
+    loginUser: async (parent, {username, password}) => {
+      const findUser = await User.findOne({username: username})
+      if(!findUser) return {token: 'invalid User', user: {username:'not found', password: '', email:'not found'}}
+      const verifyUser = await bcrypt.compare(password, findUser.password)
+      if(!verifyUser) return {token:'invalid password!', user: {username: 'invalid password', password: '', email: 'invalid'}} 
+      const token = signToken(findUser)
+      return {token, user: findUser}
+    },
+    
   }
 };
 

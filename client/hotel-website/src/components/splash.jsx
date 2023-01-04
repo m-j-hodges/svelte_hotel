@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel, {CarouselItem} from './carousel'
 import Header from './header'
 
-const MainPage = () => {
+const MainPage = ({imgSrc1, imgSrc2, imgSrc3}) => {
 
 
 
@@ -12,9 +12,9 @@ const MainPage = () => {
     <div style={{height:"50px"}}>
     </div> 
     <Carousel>
-    <CarouselItem><img style={{width:"100%"}}alt="our pool" src="img/pool.jpeg"></img></CarouselItem>
-    <CarouselItem><img style={{width:"100%"}} alt="hotel room" src="img/lobby.jpeg"></img> </CarouselItem>
-    <CarouselItem>Item 3</CarouselItem>
+    <CarouselItem height="50%"><img style={{height: "400px",width:"100%"}}alt="our pool" src={imgSrc1}></img></CarouselItem>
+    <CarouselItem height="50%"><img style={{height: "400px",width:"100%"}} alt="image2" src={imgSrc2}></img> </CarouselItem>
+    <CarouselItem height="50%"><img style={{height: "400px",width:"100%"}} alt="image3" src={imgSrc3}></img></CarouselItem>
     </Carousel>
     </div>
   )
