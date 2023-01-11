@@ -4,12 +4,13 @@ import Header from './header'
 import {useMutation}  from '@apollo/client'
 import AuthService from '../utils/auth'
 
-const Login = ({props}) => {
+const Login = ({props, orders}) => {
 
   
 const [loginForm, setLoginForm] = useState({username:'', password:''})
 const [loginUser, {error, data}] = useMutation(LOGIN_USER)
 const [lengthAlert, setLengthAlert] = useState(false)
+const [passwordAlert, setPasswordAlert] = useState('password is too short!')
 
 const updateForm = (e) => {
   const {name, value} = e.target
@@ -28,19 +29,25 @@ const updateForm = (e) => {
 
 
 const LoginUser = async () => {
+
+ try{ 
   const {data} = await loginUser({
     variables: {...loginForm}
 
   })
-  console.log(data)
   AuthService.login(data.loginUser.token)
+} catch {
+    setPasswordAlert('entered password is incorrect!')
+    setLengthAlert(true)
+  }
 }
+
 
 
 return(
   <div> 
     
-    <Header />
+    <Header orders={orders}/>
     <div className="space"></div>
     <div className="row">
     <div className="col-4"></div>
@@ -52,7 +59,7 @@ return(
       <br></br>
       <label className="px-3 d-inline" htmlFor="passwordField">Password:</label>
       <input onChange={(e)=> updateForm(e)} className="form-control my-3 w-50 d-inline" type="password" name="password" placholder="***"></input>
-      {lengthAlert ? <div className="alert alert-warning"> Password too short! </div> : ''}
+      {lengthAlert ? <div className={passwordAlert == 'password is too short!' ? 'alert alert-warning' : 'alert alert-danger' }> {passwordAlert} </div> : ''}
       <button onClick={() => LoginUser()} className="btn btn-secondary p-1 m-3 d-block" type="button">submit</button>
       <small> <a href="/Register">don't have an account? click here. </a></small>
     </div>

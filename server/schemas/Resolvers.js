@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const encryptPass = require('../utils/encrypt')
 const bcrypt = require('bcrypt')
 const {signToken} = require('../utils/Auth')
+const { AuthenticationError } = require('apollo-server-express');
+
 
 const resolvers = {
   Query: {
@@ -58,9 +60,10 @@ const resolvers = {
     },
     loginUser: async (parent, {username, password}) => {
       const findUser = await User.findOne({username: username})
-      if(!findUser) return {token: 'invalid User', user: {username:'not found', password: '', email:'not found'}}
+      if(!findUser) {throw new AuthenticationError('user not found!')
+    }
       const verifyUser = await bcrypt.compare(password, findUser.password)
-      if(!verifyUser) return {token:'invalid password!', user: {username: 'invalid password', password: '', email: 'invalid'}} 
+      if(!verifyUser) { throw new AuthenticationError('Incorrect Credentials!')} 
       const token = signToken(findUser)
       return {token, user: findUser}
     },

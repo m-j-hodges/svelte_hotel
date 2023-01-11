@@ -10,6 +10,7 @@ import Main from './components/main'
 import AuthService from './utils/auth'
 import Amenities from './components/Amenities'
 import Premier from './components/Premier'
+import PremierPhotos from './components/premierPhotos'
 
 
 
@@ -18,6 +19,7 @@ function App() {
 let imgSrc1="img/lobby.jpeg"
 let imgSrc2="img/hotel_room.jpeg"
 let imgSrc3="img/hotel_breakfast.jpeg"
+let currentOrders = JSON.parse(localStorage.getItem('myCart')) ? JSON.parse(localStorage.getItem('myCart')).length : 0
 
   return (
 
@@ -25,24 +27,28 @@ let imgSrc3="img/hotel_breakfast.jpeg"
       <Routes>
       <Route
       path="/"
-      element={<MainPage imgSrc1={imgSrc1} imgSrc2={imgSrc2} imgSrc3={imgSrc3}/>}
+      element={<MainPage orders={currentOrders} imgSrc1={imgSrc1} imgSrc2={imgSrc2} imgSrc3={imgSrc3}/>}
       /> 
       <Route
       path="/login"
-      element={<Login />} />
+      element={<Login orders={currentOrders}/>} />
       <Route
       path="/rooms"
-      element={AuthService.loggedIn()? <Main /> : <Login props="please login to view rooms." />}
+      element={AuthService.loggedIn()? <Main orders={currentOrders} /> : <Login orders={currentOrders} props="please login to view rooms." />}
       />
       <Route
       path="/register"
-      element={<Register />} />
+      element={<Register orders={currentOrders}/>} />
       <Route
       path="/amenities"
-      element={<Amenities />} />
+      element={<Amenities orders={currentOrders} />} />
       <Route
       path="/premier"
-      element={<Premier />} />
+      element={<Premier orders={currentOrders}/>} />
+      <Route
+      path="/premierPhotos"
+      element={<PremierPhotos orders={currentOrders} />} 
+      />
 
       </Routes>
     </Router> 

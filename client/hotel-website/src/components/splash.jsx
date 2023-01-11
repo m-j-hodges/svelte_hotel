@@ -2,13 +2,13 @@ import React from 'react';
 import Carousel, {CarouselItem} from './carousel'
 import Header from './header'
 
-const MainPage = ({imgSrc1, imgSrc2, imgSrc3}) => {
+const MainPage = ({imgSrc1, imgSrc2, imgSrc3, orders}) => {
 
 
 
   return (
     <div>
-    <Header />
+    <Header orders={orders}/>
     <div style={{height:"50px"}}>
     </div> 
     <Carousel>

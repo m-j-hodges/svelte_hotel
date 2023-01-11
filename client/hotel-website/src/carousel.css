@@ -4,9 +4,14 @@
 
 .inner {
 white-space: nowrap;
-transition: transform 0.3s;
-aspect-ratio: 16/9;
+transition: transform 1s;
 }
+
+.cust-img::after {
+  content: url("../public/img/right_arrow.png")
+
+}
+
 
 .indicators {
   display: flex;
@@ -26,4 +31,5 @@ aspect-ratio: 16/9;
   justify-content: center;
   height: 200px;
   color: #fff;
+  pointer-events:none;
 }

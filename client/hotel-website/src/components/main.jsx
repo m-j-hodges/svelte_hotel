@@ -4,27 +4,29 @@ import { useQuery, gql } from '@apollo/client'
 import {QUERY_ROOMS} from "../utils/queries"
 import AuthService from '../utils/auth'
 import Premier from '../components/Premier'
+import { Navigate, renderMatches, useNavigate, Link } from 'react-router-dom';
+import PremierPhotos from "./premierPhotos"
 
-export default function Main() {
+
+
+
+export default function Main({orders}) {
 
 const [notifyMsg, setNotifyMsg] = useState('')
 const [notifyMsgBool, setNotifyMsgBool] = useState(false)
 const [loggedIn, setloggedIn] = useState(false)
 const [intervalCount, setIntervalCount] = useState(0)
+const navigate = useNavigate();
 
 const {loading, error, data} = useQuery(QUERY_ROOMS)
 const rooms = data?.Rooms || []
 if (error) {console.log(error)}
 
+const NavToComponent = ({item}) => {
+  console.log(item)
+  navigate(`/premier`, {state: {itemType: item.roomType, itemPrice: item.roomPrice}})
 
-
-
-
-// let rooms = [
-//   {roomName: 'Premier', roomCost: 300.00, roomImg: '/img/premier_room.jpeg' },
-//   {roomName: 'Deluxe', roomCost: 200.00, roomImg: '/img/deluxe_room.jpeg' },
-//   {roomName: 'Basic', roomCost: 100.00, roomImg: '/img/Basic_room.jpeg' }
-// ]
+}
 
 const notifyUser = () => {
   if(!loggedIn) {
@@ -42,9 +44,10 @@ useEffect(() => {
   {setNotifyMsgBool(false)}, 4000
   )
 }, [])
+
   return(
     <>
-    <Header />
+    <Header orders={orders}/>
     <div id="row1" className="row">
     <div className="p-4"><h3> Room Options</h3> </div>
        
@@ -55,7 +58,7 @@ useEffect(() => {
       <div className="card-title text-center h3">{item.roomType}</div>
       <img className="card-img-top" style={{height: "14rem"}} src={item.imgURL}></img>
       <p className="card-text"> Nightly rate: ${item.roomPrice}</p>
-      <button className="btn btn-custom" onClick={() => notifyUser()} id={item.roomType + ' order'}>Book Room</button>
+      <button className="btn btn-custom" onClick={() => NavToComponent({item})} id={item.roomType + ' order'}>Book Room</button>
       <p style={{fontSize: "18px"}}className={notifyMsgBool ? 'd-block' : 'd-none'}>{notifyMsgBool ? notifyMsg : ''}</p>
       </div>
       </div>

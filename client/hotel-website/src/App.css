@@ -20,10 +20,58 @@ a {
 
 }
 
+.circle {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+  font: 10px Arial, sans-serif;
+  position: relative;
+  top: -10px;
+  left: 40px;
+  opacity: .9;
+}
+
 .custom-img {
   background-color: transparent;
   width: 2.5rem;
   padding: 6px;
+}
+
+.custom-order {
+  height: fit-content;
+  background-color: #E7E1CE;
+
+}
+.custom-nav {
+  background-color:#2A3844;
+
+}
+.custom-date {
+  padding:3px;
+  border-radius: 5px;
+  color: #2A3844;
+  font-size: 18px;
+  background-color: #E7E1CE;
+}
+
+.custom-btn {
+  background-color: #F7B619;
+  border-radius: 9px;
+  border: black 2px;
+  padding: 12px;
+  width: 80%;
+  display: block;
+}
+.custom-btn:hover {
+  background-color: #8C949C;
+  transition: all .3s ease-in;
+  border: black 1px solid;
+  padding: 12px -1px;
 }
 .custom-img:hover {
   background-color: rgb(162, 162, 162);

@@ -7,7 +7,7 @@ import AuthService from '../utils/auth'
 import { useEffect } from 'react';
 
 
-const Register = () => {
+const Register = ({orders}) => {
 
 
 const [alertMsg, setAlertMsg] = useState('')
@@ -60,7 +60,7 @@ return () => clearInterval(clearNotify)
 
   return(
     <>
-    <Header />
+    <Header orders={orders}/>
     <div className="space"></div>
     <div className="row">
     <div className="col-4"></div>
