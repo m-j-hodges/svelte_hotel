@@ -6,6 +6,18 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    orders: [Orders]
+  }
+
+  type Orders {
+    _id: ID
+    roomType: String
+    roomPrice: Int
+    startDate: String
+    endDate: String
+    lengthOfStay: Int
+    nightlyRate: Int
+    total: Int
   }
 
   input CreateUserInput {
@@ -29,6 +41,24 @@ const typeDefs = gql`
     discounted: Boolean
     numAvailable: Int
     imgURL: String
+    amenities: [Amenities]
+  }
+
+  type Amenities {
+    hotTub: Boolean
+    KingSizeBed: Boolean
+    QueenSizeBed: Boolean
+    TV: Boolean
+    Refrigerator: Boolean
+    wifi: Boolean
+  }
+  input AmenitiesInput {
+    hotTub: Boolean
+    KingSizeBed: Boolean
+    QueenSizeBed: Boolean
+    TV: Boolean
+    Refrigerator: Boolean
+    wifi: Boolean
   }
 
   type CreateUserPayload {
@@ -56,6 +86,15 @@ type Auth {
   user: User
 }
 
+input orderData {
+  roomType: String
+  roomPrice: Int
+  startDate: String
+  endDate: String
+  lengthOfStay: Int
+  total: Int
+}
+
   type CreateRoomsPayload {
     rooms: [Rooms]
   }
@@ -64,6 +103,8 @@ type Auth {
     Rooms: [Rooms]
     Room(_id: ID!): Rooms!
     User(username: String!): User
+    getOrder(username:String!) : [Orders]
+    getAmenities(roomType: String!) : [Amenities]
   }
   type Mutation {
     deleteAllRooms(input: [DeleteRoomsInput]): [Rooms]
@@ -71,10 +112,13 @@ type Auth {
     Rooms(roomType: String!, roomPrice: Int!, discounted: Boolean!, numAvailable: Int!): Rooms
     createUsers(input: [CreateUserInput!]!): CreateUsersPayload
     createRooms(input: [CreateRoomsInput]): [Rooms]
+    addAmenities(roomType: String!, input: AmenitiesInput): Rooms
     deleteRooms(_id: ID!): Rooms
     updateRoom(_id: ID!, imgURL: String!): Rooms
     Register(username: String!, password: String!, email: String!): Auth
     loginUser(username:String!, password: String!) : Auth
+    saveOrder(username:String!, input: orderData) : User
+    removeOrder(username:String!, orderId: ID!) : [Orders]
   }
 `
 

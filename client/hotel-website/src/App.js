@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/header'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './components/splash'
 import Login from './components/Login'
@@ -11,6 +11,10 @@ import AuthService from './utils/auth'
 import Amenities from './components/Amenities'
 import Premier from './components/Premier'
 import PremierPhotos from './components/premierPhotos'
+import Checkout from './components/cart'
+import {useQuery} from '@apollo/client'
+import {GET_ORDER} from './utils/queries'
+import CheckOutPage from './components/CheckoutPage';
 
 
 
@@ -19,7 +23,17 @@ function App() {
 let imgSrc1="img/lobby.jpeg"
 let imgSrc2="img/hotel_room.jpeg"
 let imgSrc3="img/hotel_breakfast.jpeg"
-let currentOrders = JSON.parse(localStorage.getItem('myCart')) ? JSON.parse(localStorage.getItem('myCart')).length : 0
+let currentUser = localStorage.getItem('id_token') ? AuthService.getProfile().data.username : null
+const {loading, data } = useQuery(GET_ORDER, {
+  variables: { username: currentUser
+  },
+})
+let currentOrders
+let allOrders
+
+  currentOrders = !loading ? data?.getOrder.length : 0
+  allOrders = data?.getOrder
+
 
   return (
 
@@ -48,6 +62,14 @@ let currentOrders = JSON.parse(localStorage.getItem('myCart')) ? JSON.parse(loca
       <Route
       path="/premierPhotos"
       element={<PremierPhotos orders={currentOrders} />} 
+      />
+      <Route
+      path="/cart"
+      element={<Checkout isLoading={loading} allOrders={allOrders} orders={currentOrders} />} 
+      />
+      <Route
+      path="/CheckOutPage"
+      element={<CheckOutPage isLoading={loading} allOrders={allOrders} orders={currentOrders} />} 
       />
 
       </Routes>

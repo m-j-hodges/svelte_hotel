@@ -45,7 +45,7 @@ return (
     {loggedInStatus ? <li onClick={()=> AuthService.logout()} className='navbar-item m-2 p-2 text-white custom-menu'>Logout</li> : ''}
     </ul>
     <div className="nav-brand">
-    <a href="/premier" className="text-decoration-none">
+    <a href="/cart" className="text-decoration-none">
     {loggedInStatus ? <><img className="custom-img mx-3" src="img/shopping_cart.png"></img><div className="circle font-weight-lighter"><p>{orders}</p></div></> : ''}
     </a>
     </div>

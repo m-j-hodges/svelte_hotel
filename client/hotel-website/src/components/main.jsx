@@ -23,7 +23,6 @@ const rooms = data?.Rooms || []
 if (error) {console.log(error)}
 
 const NavToComponent = ({item}) => {
-  console.log(item)
   navigate(`/premier`, {state: {itemType: item.roomType, itemPrice: item.roomPrice}})
 
 }
@@ -64,7 +63,7 @@ useEffect(() => {
       </div>
       
       </>
-    )) : (<p> loading...</p>)}
+    )) : (<div className="spinner w-20"> </div>)}
     
     </div>
     </>

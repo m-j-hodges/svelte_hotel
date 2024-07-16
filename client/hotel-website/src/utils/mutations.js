@@ -24,3 +24,36 @@ mutation LoginUser($username: String!, $password: String!) {
   }
 }
 `
+
+export const NEW_ORDER = gql`
+mutation Mutation($username: String!, $input: orderData) {
+  saveOrder(username: $username, input: $input) {
+    email
+    orders {
+      total
+      startDate
+      roomType
+      roomPrice
+      nightlyRate
+      lengthOfStay
+      endDate
+    }
+    password
+    username
+  }
+}
+`
+
+export const DELETE_ORDER = gql`
+mutation Mutation($username: String!, $orderId: ID!) {
+  removeOrder(username: $username, orderId: $orderId) {
+    endDate
+    lengthOfStay
+    nightlyRate
+    roomPrice
+    roomType
+    startDate
+    total
+  }
+}
+`

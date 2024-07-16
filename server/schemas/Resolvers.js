@@ -16,8 +16,16 @@ const resolvers = {
     },
     Room: async (parent, args) => {
       return Rooms.findOne({_id: args._id});
+    },
+    getOrder: async (parent, args) => {
+      const foundUser = await User.findOne({username: args.username}).populate('orders')
+      return foundUser.orders
 
-    }
+    },
+    getAmenities : async (parent, args) => {
+      const findRoom = await Rooms.findOne({roomType: args.roomType})
+      return findRoom.amenities
+    },
   },
   Mutation: {
     User: async (parent, {email, username, password}) => {
@@ -67,8 +75,35 @@ const resolvers = {
       const token = signToken(findUser)
       return {token, user: findUser}
     },
+    saveOrder: async (parent, args) => {
+        return await User.findOneAndUpdate({username: args.username},{
+          $addToSet: {
+            orders: {
+              roomType: args.input.roomType, roomPrice: args.input.roomPrice, lengthOfStay: args.input.lengthOfStay, total: args.input.total, startDate: args.input.startDate, endDate: args.input.endDate 
+            }
+          }
+        }, {new:true},
+        )
+        
+
+    },
+    removeOrder: async (parent, args) => {
+      const updatedUser =  await User.findOneAndUpdate({username: args.username}, {
+        $pull:{ orders: {_id: args.orderId}}
+
+      }, {new: true})
+      return updatedUser.orders
+      
+    },
+    addAmenities: async (parent, args) => {
+      const {input} = args
+      return await Rooms.findOneAndUpdate({roomType:args.roomType}, {
+        $addToSet: { amenities: {...input}
+        }}, {new: true}
+      )
+    },
     
-  }
+  },
 };
 
 module.exports = resolvers;

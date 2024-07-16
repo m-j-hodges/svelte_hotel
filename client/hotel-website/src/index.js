@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import bootstrap from 'bootstrap';
 import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from '@apollo/client'
 import { setContext } from '@apollo/client/link/context';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 const httpLink = createHttpLink({ uri: 'http://localhost:3001/graphql'},)

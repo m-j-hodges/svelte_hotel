@@ -6,7 +6,6 @@ import AuthService from '../utils/auth'
 
 const Login = ({props, orders}) => {
 
-  
 const [loginForm, setLoginForm] = useState({username:'', password:''})
 const [loginUser, {error, data}] = useMutation(LOGIN_USER)
 const [lengthAlert, setLengthAlert] = useState(false)
@@ -60,7 +59,7 @@ return(
       <label className="px-3 d-inline" htmlFor="passwordField">Password:</label>
       <input onChange={(e)=> updateForm(e)} className="form-control my-3 w-50 d-inline" type="password" name="password" placholder="***"></input>
       {lengthAlert ? <div className={passwordAlert == 'password is too short!' ? 'alert alert-warning' : 'alert alert-danger' }> {passwordAlert} </div> : ''}
-      <button onClick={() => LoginUser()} className="btn btn-secondary p-1 m-3 d-block" type="button">submit</button>
+      <button onClick={() => LoginUser()} className="btn btn-secondary w-75 p-3 m-3 d-block" type="button">submit</button>
       <small> <a href="/Register">don't have an account? click here. </a></small>
     </div>
     <div className="col-4"></div>

@@ -31,7 +31,7 @@ return (
   <div className="card-body">
     <h5 className="card-title">Buffet Breakfast</h5>
     <img className="card-img-top" src="img/hotel_breakfast.jpeg" style={{height:"9rem"}}></img>
-    <h6 className="card-subtitle my-2 text-muted">Come enjoy an assortment of food for breakfast!</h6>
+    <h6 className="card-subtitle my-2 text-muted">Breakfast is on us!</h6>
     <p className="card-text">An assortment of baked goods, eggs, or anything you would like our chefs to cook.</p>
     <a href="#" className="card-link">link to photos</a>
   </div>

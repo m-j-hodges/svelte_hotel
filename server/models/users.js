@@ -20,22 +20,30 @@ const userSchema = new Schema({
   },
   orders: [
     {
-      roomType: {
+    roomType: {
       type: String
     },
     roomPrice: {
       type: Number
     },
     startDate: {
-      type: Date,
+      type: String,
       required: true
     },
     endDate: {
-      type: Date,
+      type: String,
       required: true
+    },
+    lengthOfStay: {
+      type: Number
+    },
+    nightlyRate: {
+      type: Number
+    },
+    total: {
+      type: Number
     }
-  },
-
+  }
   ],
 
 })
